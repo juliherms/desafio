@@ -23,9 +23,9 @@ public class CidadeController extends ControllerBase<CidadeDTO> implements ICida
 	public ResponseEntity<CidadeDTO> cadastrar(@Valid CidadeDTO cidadeDTO, UriComponentsBuilder uriBuilder) {
 
 		CidadeDTO dto = service.salvar(cidadeDTO);
-		String path = "/cidades/{code}";
+		String path = "/cidades/{id}";
 
-		return responderItemCriadoComURI(dto, uriBuilder, path, cidadeDTO.getId().toString());
+		return responderItemCriadoComURI(dto, uriBuilder, path, dto.getId().toString());
 	}
 
 	@Override
