@@ -64,7 +64,7 @@ public interface IClienteController {
 			@ApiResponse(code = 400, message = "Error de requisição", response = ErrorDTO.class, responseContainer = "object"),
 			@ApiResponse(code = 401, message = "Usuário sem acesso"),
 			@ApiResponse(code = 404, message = "Cliente não encontrado") })
-	@GetMapping("/consultar/{nome}")
+	@GetMapping()
 	public ResponseEntity<ClienteDTO> consultar(@RequestParam(value="nome") String nome);
 	
 

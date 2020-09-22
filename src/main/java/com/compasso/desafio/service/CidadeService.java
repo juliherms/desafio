@@ -10,13 +10,18 @@ import org.springframework.stereotype.Service;
 import com.compasso.desafio.conversor.CidadeConversor;
 import com.compasso.desafio.dto.CidadeDTO;
 import com.compasso.desafio.entities.Cidade;
+import com.compasso.desafio.entities.Estado;
 import com.compasso.desafio.repository.CidadeRepository;
+import com.compasso.desafio.repository.EstadoRepository;
 
 @Service
 public class CidadeService {
 
 	@Autowired
 	private CidadeRepository repo;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	@Autowired
 	private CidadeConversor cidadeConversor;
@@ -40,8 +45,31 @@ public class CidadeService {
 	public CidadeDTO salvar(@Valid CidadeDTO cidadeDTO) {
 		
 		
-		// TODO Auto-generated method stub
-		return null;
+		Estado estado = verificarEstado(cidadeDTO);
+		
+		Cidade cidade = cidadeConversor.converterDtoToEntity(cidadeDTO);
+		cidade.setEstado(estado);
+		
+		repo.save(cidade);
+		
+		return cidadeConversor.converterEntityToDto(cidade);
+		
+	}
+	
+	private Estado verificarEstado(CidadeDTO cidadeDTO) {
+		
+		Estado estado = new Estado();
+		
+		
+		if(!cidadeDTO.getEstado().isEmpty() && !cidadeDTO.getUf().isEmpty()){
+			estado.setNome(cidadeDTO.getEstado());
+			estado.setUf(cidadeDTO.getUf());
+			
+			estadoRepository.save(estado);
+			
+		}
+		
+		return estado;
 	}
 
 	/**
@@ -51,7 +79,7 @@ public class CidadeService {
 	 */
 	public CidadeDTO findByNome(String nome) {
 
-		return cidadeConversor.converterEntityToDto(repo.findByNome(nome));
+		return cidadeConversor.converterEntityToDto(repo.findByNome(nome.toLowerCase()));
 	}
 
 }

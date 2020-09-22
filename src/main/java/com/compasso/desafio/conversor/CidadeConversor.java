@@ -21,7 +21,9 @@ public class CidadeConversor extends ConversorBase<Cidade, CidadeDTO> {
 		cidadeDTO.setNome(entity.getNome());
 
 		if (entity.getEstado() != null) {
-			cidadeDTO.setNome(entity.getEstado().getNome());
+			cidadeDTO.setEstado(entity.getEstado().getNome());
+			cidadeDTO.setUf(entity.getEstado().getUf());
+			cidadeDTO.setIdEstado(entity.getEstado().getId());
 		}
 		return cidadeDTO;
 	}
@@ -31,9 +33,9 @@ public class CidadeConversor extends ConversorBase<Cidade, CidadeDTO> {
 
 		Cidade cidade = new Cidade();
 		cidade.setId(dto.getId());
-		cidade.setNome(dto.getNome());
+		cidade.setNome(dto.getNome().toLowerCase());
 
-		if (dto.getIdEstado() > 0) {
+		if (dto.getIdEstado() != null) {
 			cidade.setEstado(estadoRepository.getOne(dto.getIdEstado()));
 		}
 		return cidade;

@@ -1,5 +1,6 @@
 package com.compasso.desafio.conversor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.compasso.desafio.dto.ClienteDTO;
@@ -9,6 +10,7 @@ import com.compasso.desafio.repository.CidadeRepository;
 @Component
 public class ClienteConversor extends ConversorBase<Cliente, ClienteDTO> {
 
+	@Autowired
 	private CidadeRepository cidadeRepository;
 
 	@Override
@@ -16,6 +18,7 @@ public class ClienteConversor extends ConversorBase<Cliente, ClienteDTO> {
 
 		ClienteDTO clienteDTO = new ClienteDTO();
 
+		clienteDTO.setId(entity.getId());
 		clienteDTO.setCidade(entity.getCidade().getNome());
 		clienteDTO.setDataNascimento(entity.getDataNascimento());
 		clienteDTO.setEstado(entity.getCidade().getEstado().getUf());
@@ -31,7 +34,7 @@ public class ClienteConversor extends ConversorBase<Cliente, ClienteDTO> {
 
 		Cliente cliente = new Cliente();
 
-		cliente.setCidade(cidadeRepository.findByNome(dto.getCidade()));
+		cliente.setCidade(cidadeRepository.findByNome(dto.getCidade().toLowerCase()));
 		cliente.setDataNascimento(dto.getDataNascimento());
 		cliente.setIdade(dto.getIdade());
 		cliente.setNome(dto.getNome());

@@ -6,6 +6,15 @@ public class CidadeDTO {
 	private String nome;
 	private String estado;
 	private Long idEstado;
+	private String uf;
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
 
 	public Long getId() {
 		return id;
