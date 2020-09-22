@@ -11,7 +11,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.compasso.desafio.controller.swagger.ICidadeController;
 import com.compasso.desafio.dto.CidadeDTO;
 import com.compasso.desafio.service.CidadeService;
-import com.compasso.desafio.service.EstadoService;
 
 @RestController
 @RequestMapping("/cidades")
